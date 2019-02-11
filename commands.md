@@ -11,21 +11,19 @@ docker-machine.exe %*
 
 ## 2. creating and joining swarms
 
-### *change DockerNAT to external using wifi switch*
+### *Use Default network switch*
 
 ```
 dm ls
 dm rm manager1
 
-dm -debug create manager1
-
-dm create -d hyperv --hyperv-virtual-switch DockerNAT manager1
-dm create -d hyperv --hyperv-virtual-switch DockerNAT worker1
-dm create -d hyperv --hyperv-virtual-switch DockerNAT worker2
+dm -debug --native-ssh create -d hyperv --hyperv-virtual-switch "Default Switch" vm1
+dm -debug --native-ssh create -d hyperv --hyperv-virtual-switch "Default Switch" vm2
+dm -debug --native-ssh create -d hyperv --hyperv-virtual-switch "Default Switch" vm3
 
 docker swarm leave --force
 docker swarm init
-docker swarm join --token SWMTKN-1-2f9qbahafdkk89t1phfygmpari5s14wv1s981nqompfi5nhzkg-ckhcu9wh8as3nb4eh1jfed4wr 192.168.1.228:2377
+docker swarm join --token SWMTKN-1-3c59vkipdae4s9161e74ntca8q2zn3a8kfv9btzbuxl6rf9lq5-3oc9zf07bji0ve17jlplf2kno 172.17.89.118:2377
 ```
 
 ## 3. docker node commands
